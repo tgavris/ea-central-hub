@@ -24,6 +24,7 @@ import {
   Boxes,
   Moon,
   Sun,
+  BookOpen,
 } from 'lucide-react'
 import { colleagues } from '@/lib/data/colleagues'
 import { getNeedsAttentionCountByColleague, insights, isNeedsAttention } from '@/lib/data/insights'
@@ -31,6 +32,7 @@ import { cn } from '@/lib/utils'
 
 const otherNavItems = [
   { label: 'Contacts', href: '/contacts', icon: Users },
+  { label: 'Resources', href: '/resources', icon: BookOpen },
   { label: 'Preferences', href: '/preferences', icon: Settings },
 ]
 
