@@ -33,7 +33,6 @@ import { cn } from '@/lib/utils'
 const otherNavItems = [
   { label: 'Contacts', href: '/contacts', icon: Users },
   { label: 'Resources', href: '/resources', icon: BookOpen },
-  { label: 'Preferences', href: '/preferences', icon: Settings },
 ]
 
 export function AppSidebar() {
