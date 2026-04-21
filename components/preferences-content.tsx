@@ -87,7 +87,7 @@ export function PreferencesContent() {
   ]
 
   return (
-    <div className="max-w-2xl">
+    <div className="max-w-4xl">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-xl font-semibold text-foreground mb-1">Preferences</h1>
@@ -244,9 +244,15 @@ export function PreferencesContent() {
                 </div>
                 <p className="text-xs text-muted-foreground mt-0.5">{integration.description}</p>
               </div>
-              <Button variant="ghost" size="sm" className="h-8 px-3 text-xs ml-3 shrink-0">
-                {integration.status === 'Connected' ? 'Disconnect' : 'Connect'}
-              </Button>
+              {integration.status === 'Connected' ? (
+                <Button size="sm" className="h-8 px-3 text-xs ml-3 shrink-0 bg-[#B94040] hover:bg-[#A03535] text-white border-0">
+                  Disconnect
+                </Button>
+              ) : (
+                <Button size="sm" variant="outline" className="h-8 px-3 text-xs ml-3 shrink-0 border-[#2251FF] text-[#2251FF] hover:bg-[#2251FF]/5">
+                  Connect
+                </Button>
+              )}
             </div>
           ))}
         </div>
