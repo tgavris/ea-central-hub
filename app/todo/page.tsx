@@ -5,6 +5,7 @@ import { Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { TodoBoard } from '@/components/todo-board'
+import { TeamsContent } from '@/components/teams-content'
 import { PreferencesContent } from '@/components/preferences-content'
 import { cn } from '@/lib/utils'
 import { useTodo } from '@/lib/todo-context'
@@ -89,9 +90,7 @@ export default function TodoPage() {
           <TodoBoard viewBy="status" search={search} />
         )}
         {activeTab === 'teams' && (
-          <div>
-            <p className="text-muted-foreground">Teams content coming soon</p>
-          </div>
+          <TeamsContent />
         )}
         {activeTab === 'desk-notes' && (
           <div>
