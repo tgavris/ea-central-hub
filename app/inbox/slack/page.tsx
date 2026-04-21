@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Search, Plus, Hash, MessageSquare, ChevronDown, User } from 'lucide-react'
+import { Plus, Hash, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 type Reaction = { emoji: string; count: number }
@@ -316,8 +316,7 @@ const threads: Thread[] = [
 ]
 
 export default function SlackPage() {
-  const [activeId, setActiveId] = useState<string>('sarah-chen-team')
-  const [search, setSearch] = useState('')
+  const [activeId, setActiveId] = useState<string>('david-park')
 
   const thread = threads.find((t) => t.id === activeId) ?? threads[0]
   const isDm = thread.isDm ?? false
@@ -326,71 +325,11 @@ export default function SlackPage() {
     <div className="flex h-full overflow-hidden bg-background">
       {/* Slack left sidebar */}
       <div className="w-64 shrink-0 flex flex-col border-r bg-[#3f0e40] text-white overflow-y-auto">
-        {/* Workspace header */}
-        <div className="px-4 py-3 border-b border-white/10">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-sm font-bold text-white leading-tight">McKinsey &amp; Co</h2>
-              <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="h-2 w-2 rounded-full bg-green-400 shrink-0" />
-                <span className="text-xs text-white/70">Alex Morgan</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Search */}
-        <div className="px-3 py-2 border-b border-white/10">
-          <div className="relative">
-            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/50 pointer-events-none" />
-            <input
-              type="text"
-              placeholder="Search messages..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-white/10 text-xs text-white placeholder:text-white/50 rounded pl-8 pr-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-white/30"
-            />
-          </div>
-        </div>
-
-        {/* Channels */}
-        <div className="px-3 py-3">
-          <button className="flex items-center gap-1 text-xs font-semibold text-white/70 uppercase tracking-wider mb-1.5 hover:text-white transition-colors w-full">
-            <ChevronDown className="h-3 w-3" />
-            Channels
-          </button>
-          <div className="space-y-0.5">
-            {channels.map((ch) => (
-              <button
-                key={ch.id}
-                onClick={() => setActiveId(ch.id)}
-                className={cn(
-                  'w-full text-left px-2 py-1 rounded text-sm flex flex-col transition-colors',
-                  activeId === ch.id
-                    ? 'bg-white/20 text-white'
-                    : 'text-white/70 hover:bg-white/10 hover:text-white'
-                )}
-              >
-                <span className="flex items-center gap-1.5">
-                  <Hash className="h-3.5 w-3.5 shrink-0" />
-                  <span className={cn('truncate', ch.unread && activeId !== ch.id && 'font-semibold text-white')}>
-                    {ch.name}
-                  </span>
-                </span>
-                {ch.preview && (
-                  <span className="text-[11px] text-white/40 truncate pl-5 mt-0.5">{ch.preview}</span>
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Direct Messages */}
-        <div className="px-3 py-2">
-          <button className="flex items-center gap-1 text-xs font-semibold text-white/70 uppercase tracking-wider mb-1.5 hover:text-white transition-colors w-full">
-            <ChevronDown className="h-3 w-3" />
+        <div className="px-3 py-3">
+          <p className="text-xs font-semibold text-white/70 uppercase tracking-wider mb-1.5 px-2">
             Direct Messages
-          </button>
+          </p>
           <div className="space-y-0.5">
             {directMessages.map((dm) => (
               <button
@@ -418,23 +357,6 @@ export default function SlackPage() {
               </button>
             ))}
           </div>
-        </div>
-
-        {/* Threads */}
-        <div className="px-3 py-2">
-          <button className="flex items-center gap-1 text-xs font-semibold text-white/70 uppercase tracking-wider mb-1.5 hover:text-white transition-colors w-full">
-            <ChevronDown className="h-3 w-3" />
-            Threads
-          </button>
-          <button className="w-full text-left px-2 py-1 rounded text-sm text-white/70 hover:bg-white/10 hover:text-white transition-colors flex flex-col">
-            <span className="flex items-center gap-2">
-              <MessageSquare className="h-3.5 w-3.5 shrink-0" />
-              <span className="truncate">#meridian-engagement → Thread</span>
-            </span>
-            <span className="text-[11px] text-white/40 truncate pl-6 mt-0.5">
-              Great. Also remind me to call Dr...
-            </span>
-          </button>
         </div>
       </div>
 
