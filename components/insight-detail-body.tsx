@@ -28,26 +28,89 @@ const CONFLICT_ACCENT: Record<string, string> = {
 
 export function InsightDetailBody({ insight }: { insight: Insight }) {
   const Icon = TYPE_ICONS[insight.type]
+  const hasActionContent = !!(insight.actionStep || insight.suggestedResponse || insight.conflictSlots || insight.alternatives)
 
   return (
-    <div className="space-y-4">
+    <div className="flex divide-x divide-border min-h-full">
 
-      {/* Context */}
-      <div className="rounded-lg border bg-card px-4 py-3 space-y-1.5">
-        <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
-          Context
-        </p>
-        <p className="text-sm text-foreground leading-relaxed">
-          {insight.whyItMatters
-            ? `${insight.whyItMatters}${insight.whatItImpacts ? ` ${insight.whatItImpacts}` : ''}`
-            : insight.description}
-        </p>
+      {/* Left — Context */}
+      <div className="flex flex-col gap-4 px-6 py-5 flex-1 min-w-0">
+        <div className="rounded-lg border bg-card px-4 py-3 space-y-1.5">
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            Context
+          </p>
+          <p className="text-sm text-foreground leading-relaxed">
+            {insight.whyItMatters
+              ? `${insight.whyItMatters}${insight.whatItImpacts ? ` ${insight.whatItImpacts}` : ''}`
+              : insight.description}
+          </p>
+        </div>
+
+        {/* While you're there — nearby opportunities */}
+        {insight.nearbyOpportunities && insight.nearbyOpportunities.length > 0 && (
+          <div className="rounded-lg border bg-card p-4 space-y-3">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
+              <MapPin className="h-3 w-3" />
+              While you&apos;re there
+            </p>
+            <div className="space-y-2">
+              {insight.nearbyOpportunities.map((opp, i) => (
+                <div key={i} className="flex items-start gap-3 rounded-md border bg-muted/20 p-3">
+                  <div className="flex-1 min-w-0 space-y-0.5">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <p className="text-xs font-semibold text-foreground">{opp.name}</p>
+                      <span className="text-[10px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
+                        {opp.company}
+                      </span>
+                      <span className="text-[10px] text-muted-foreground border border-border px-1.5 py-0.5 rounded">
+                        {opp.relationship}
+                      </span>
+                    </div>
+                    {opp.note && (
+                      <p className="text-[11px] text-muted-foreground">{opp.note}</p>
+                    )}
+                  </div>
+                  <Button size="sm" variant="outline" className="shrink-0 w-40 gap-1 text-xs">
+                    <CalendarPlus className="h-3 w-3" />
+                    {opp.suggestion}
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Sources + meta footer */}
+        <div className="flex items-center justify-between gap-3 pt-1 mt-auto">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {insight.sources?.map((source, i) => (
+              <a
+                key={i}
+                href={source.url}
+                className="inline-flex items-center gap-1 rounded-full border bg-muted/40 px-2.5 py-0.5 text-[11px] text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {source.label}
+              </a>
+            ))}
+            {!insight.sources?.length && (
+              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                <Icon className="h-3 w-3" />
+                <span>{TYPE_LABELS[insight.type]}</span>
+              </div>
+            )}
+          </div>
+          <div className="flex items-center gap-2 text-[11px] text-muted-foreground shrink-0 flex-wrap justify-end">
+            <span>{insight.rule}</span>
+            <span className="opacity-40">·</span>
+            <span>{formatDateTime(insight.timestamp)}</span>
+          </div>
+        </div>
       </div>
 
-      {/* Action step — with rich inline content */}
-      {(insight.actionStep || insight.suggestedResponse || insight.conflictSlots || insight.alternatives) && (
-        <div className="rounded-lg border bg-card p-4 space-y-3">
+      {/* Right — Action step */}
+      {hasActionContent && (
+        <div className="flex flex-col gap-3 px-6 py-5 w-[46%] shrink-0">
           <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
             Action step
           </p>
@@ -65,66 +128,6 @@ export function InsightDetailBody({ insight }: { insight: Insight }) {
         </div>
       )}
 
-      {/* While you're there — nearby opportunities */}
-      {insight.nearbyOpportunities && insight.nearbyOpportunities.length > 0 && (
-        <div className="rounded-lg border bg-card p-4 space-y-3">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
-            <MapPin className="h-3 w-3" />
-            While you&apos;re there
-          </p>
-          <div className="space-y-2">
-            {insight.nearbyOpportunities.map((opp, i) => (
-              <div key={i} className="flex items-start gap-3 rounded-md border bg-muted/20 p-3">
-                <div className="flex-1 min-w-0 space-y-0.5">
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    <p className="text-xs font-semibold text-foreground">{opp.name}</p>
-                    <span className="text-[10px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
-                      {opp.company}
-                    </span>
-                    <span className="text-[10px] text-muted-foreground border border-border px-1.5 py-0.5 rounded">
-                      {opp.relationship}
-                    </span>
-                  </div>
-                  {opp.note && (
-                    <p className="text-[11px] text-muted-foreground">{opp.note}</p>
-                  )}
-                </div>
-                <Button size="sm" variant="outline" className="shrink-0 w-40 gap-1 text-xs">
-                  <CalendarPlus className="h-3 w-3" />
-                  {opp.suggestion}
-                </Button>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Sources + meta footer */}
-      <div className="flex items-center justify-between gap-3 pt-1">
-        <div className="flex items-center gap-1.5 flex-wrap">
-          {insight.sources?.map((source, i) => (
-            <a
-              key={i}
-              href={source.url}
-              className="inline-flex items-center gap-1 rounded-full border bg-muted/40 px-2.5 py-0.5 text-[11px] text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {source.label}
-            </a>
-          ))}
-          {!insight.sources?.length && (
-            <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-              <Icon className="h-3 w-3" />
-              <span>{TYPE_LABELS[insight.type]}</span>
-            </div>
-          )}
-        </div>
-        <div className="flex items-center gap-2 text-[11px] text-muted-foreground shrink-0 flex-wrap justify-end">
-          <span>{insight.rule}</span>
-          <span className="opacity-40">·</span>
-          <span>{formatDateTime(insight.timestamp)}</span>
-        </div>
-      </div>
-
     </div>
   )
 }
@@ -139,15 +142,15 @@ function RichActionContent({ insight }: { insight: Insight }) {
             <Mail className="h-3.5 w-3.5 text-muted-foreground" />
             <span className="text-[11px] text-muted-foreground font-medium">Draft reply</span>
           </div>
-          <pre className="text-xs text-foreground whitespace-pre-wrap font-sans leading-relaxed px-4 py-3 max-h-48 overflow-y-auto">
-            {insight.suggestedResponse}
-          </pre>
+          <textarea
+            className="w-full text-xs text-foreground bg-transparent font-sans leading-relaxed px-4 py-3 resize-none focus:outline-none min-h-[160px]"
+            defaultValue={insight.suggestedResponse}
+          />
         </div>
         <div className="flex items-center gap-2">
           <Button size="sm" className="gap-1">
             Send <ArrowRight className="h-3.5 w-3.5" />
           </Button>
-          <Button size="sm" variant="outline">Edit Draft</Button>
         </div>
       </div>
     )
