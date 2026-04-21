@@ -96,8 +96,8 @@ export default function TodoPage() {
         </div>
       </div>
 
-      {/* Board */}
-      <main className="flex-1 overflow-hidden p-6">
+      {/* List */}
+      <main className="flex-1 overflow-y-auto p-6">
         <TodoBoard viewBy={viewBy} />
       </main>
     </div>
