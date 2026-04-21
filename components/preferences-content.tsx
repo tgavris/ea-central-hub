@@ -87,7 +87,7 @@ export function PreferencesContent() {
   ]
 
   return (
-    <div className="max-w-2xl">
+    <div className="max-w-4xl">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-xl font-semibold text-foreground mb-1">Preferences</h1>
