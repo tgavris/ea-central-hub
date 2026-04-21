@@ -1,8 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -10,30 +8,23 @@ import { TodoBoard } from '@/components/todo-board'
 import { cn } from '@/lib/utils'
 import { useTodo } from '@/lib/todo-context'
 import { insights, getNeedsAttentionCount } from '@/lib/data/insights'
-import type { TodoViewBy } from '@/lib/types'
 
 export default function TodoPage() {
-  const pathname = usePathname()
   const { todos } = useTodo()
   const [search, setSearch] = useState('')
+  const [activeTab, setActiveTab] = useState('insights')
 
   const todoInsightIds = new Set(todos.filter(t => t.source === 'insight').map(t => t.sourceId))
   const pendingInsights = insights.filter(i => !todoInsightIds.has(i.id))
   const queuedTodos = todos.filter(t => t.status === 'todo')
   const todoCount = queuedTodos.length + pendingInsights.length
-  const insightCount = getNeedsAttentionCount(insights)
 
   const tabs = [
-    { label: 'Insights', href: '/todo', count: todoCount },
-    { label: 'Teams', href: '/teams' },
-    { label: 'Desk Notes', href: '/desk-notes' },
-    { label: 'Preferences', href: '/preferences' },
+    { id: 'insights', label: 'Insights', count: todoCount },
+    { id: 'teams', label: 'Teams' },
+    { id: 'desk-notes', label: 'Desk Notes' },
+    { id: 'preferences', label: 'Preferences' },
   ]
-
-  const isActive = (href: string) => {
-    if (href === '/todo') return pathname === '/todo' || pathname.startsWith('/todo/')
-    return pathname === href || pathname.startsWith(href + '/')
-  }
 
   return (
     <div className="flex flex-col h-full">
@@ -59,12 +50,12 @@ export default function TodoPage() {
         <div className="flex items-center justify-between px-6">
           <div className="flex items-center gap-6">
             {tabs.map((tab) => (
-              <Link
-                key={tab.href}
-                href={tab.href}
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
                 className={cn(
                   'flex items-center gap-2 py-3 text-sm border-b-2 -mb-px transition-colors',
-                  isActive(tab.href)
+                  activeTab === tab.id
                     ? 'border-foreground text-foreground font-medium'
                     : 'border-transparent text-muted-foreground hover:text-foreground'
                 )}
@@ -73,14 +64,14 @@ export default function TodoPage() {
                 {tab.count !== undefined && (
                   <span className={cn(
                     'text-xs px-1.5 py-0.5 rounded-full',
-                    isActive(tab.href)
+                    activeTab === tab.id
                       ? 'bg-foreground/10 text-foreground'
                       : 'bg-muted text-muted-foreground'
                   )}>
                     {tab.count}
                   </span>
                 )}
-              </Link>
+              </button>
             ))}
           </div>
           <Button size="sm" className="text-xs h-8 mb-px bg-[#2251FF] text-white hover:bg-[#2251FF]/90">
@@ -89,9 +80,27 @@ export default function TodoPage() {
         </div>
       </header>
 
-      {/* List */}
+      {/* Content */}
       <main className="flex-1 overflow-y-auto p-6">
-        <TodoBoard viewBy="status" search={search} />
+        {activeTab === 'insights' && (
+          <TodoBoard viewBy="status" search={search} />
+        )}
+        {activeTab === 'teams' && (
+          <div>
+            <p className="text-muted-foreground">Teams content coming soon</p>
+          </div>
+        )}
+        {activeTab === 'desk-notes' && (
+          <div>
+            <p className="text-muted-foreground">Desk Notes content coming soon</p>
+          </div>
+        )}
+        {activeTab === 'preferences' && (
+          <div>
+            <h2 className="text-xl font-semibold mb-4">Preferences</h2>
+            <p className="text-muted-foreground">Preferences content coming soon</p>
+          </div>
+        )}
       </main>
     </div>
   )
