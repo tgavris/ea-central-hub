@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { Plus, Mail, Calendar, Plane, FileText, AlertTriangle, X, Zap, Sparkles, ArrowRight, ExternalLink, ChevronDown, MoreHorizontal, Trash2 } from 'lucide-react'
+import { Plus, Mail, Calendar, Plane, FileText, AlertTriangle, X, Zap, Sparkles, ArrowRight, ExternalLink, ChevronDown, MoreHorizontal, Trash2, CheckCircle2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { Insight, TodoItem, TodoStatus, TodoSpeed, TodoUrgency, TodoViewBy } from '@/lib/types'
 import { useTodo } from '@/lib/todo-context'
@@ -299,12 +299,14 @@ function TodoListRow({
   onRemove,
   onStatusChange,
   hideColleagueName = false,
+  showMoveToDone = false,
 }: {
   todo: TodoItem
   onClick: () => void
   onRemove: (id: string) => void
   onStatusChange: (id: string, status: TodoStatus) => void
   hideColleagueName?: boolean
+  showMoveToDone?: boolean
 }) {
   const colleagueName = getColleagueName(todo.colleagueId)
   const isDone = todo.status === 'done'
@@ -365,6 +367,17 @@ function TodoListRow({
         {formatDistanceToNow(todo.createdAt)}
       </span>
 
+      {/* Move to Done button (in-progress only) */}
+      {showMoveToDone && (
+        <button
+          onClick={(e) => { e.stopPropagation(); onStatusChange(todo.id, 'done') }}
+          className="hidden group-hover:flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground bg-muted hover:bg-muted/80 px-2 py-1 rounded transition-colors shrink-0"
+        >
+          <CheckCircle2 className="h-3 w-3" />
+          Done
+        </button>
+      )}
+
       {/* Three-dot menu */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
@@ -390,10 +403,12 @@ function InsightListRow({
   insight,
   onClick,
   hideColleagueName = false,
+  onMoveToInProgress,
 }: {
   insight: Insight
   onClick: () => void
   hideColleagueName?: boolean
+  onMoveToInProgress?: () => void
 }) {
   const colleagueName = getColleagueName(insight.colleagueId)
   const Icon = TYPE_ICON[insight.type] ?? FileText
@@ -438,8 +453,19 @@ function InsightListRow({
         {formatDistanceToNow(insight.timestamp)}
       </span>
 
-      {/* Spacer for the menu button column */}
-      <div className="h-6 w-6 shrink-0" />
+      {/* Move to In Progress button */}
+      {onMoveToInProgress && (
+        <button
+          onClick={(e) => { e.stopPropagation(); onMoveToInProgress() }}
+          className="hidden group-hover:flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground bg-muted hover:bg-muted/80 px-2 py-1 rounded transition-colors shrink-0"
+        >
+          <ArrowRight className="h-3 w-3" />
+          In Progress
+        </button>
+      )}
+
+      {/* Spacer when button hidden */}
+      {!onMoveToInProgress && <div className="h-6 w-6 shrink-0" />}
     </div>
   )
 }
@@ -684,6 +710,7 @@ export function TodoBoard({ viewBy, colleagueId }: TodoBoardProps) {
                 insight={insight}
                 onClick={() => setModalInsight(insight)}
                 hideColleagueName={!!colleagueId}
+                onMoveToInProgress={() => addInsightAsTodo(insight, 'in-progress', 'medium', 'medium')}
               />
             ))}
           </Section>
@@ -700,6 +727,8 @@ export function TodoBoard({ viewBy, colleagueId }: TodoBoardProps) {
                     onClick={() => handleTodoCardClick(todo)}
                     onRemove={removeTodo}
                     onStatusChange={updateTodoStatus}
+                    hideColleagueName={!!colleagueId}
+                    showMoveToDone
                   />
                 ))}
               </Section>
