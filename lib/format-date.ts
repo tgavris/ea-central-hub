@@ -8,7 +8,7 @@ export function formatDistanceToNow(date: Date): string {
   if (diffMins < 1) {
     return 'just now'
   } else if (diffMins < 60) {
-    return `${diffMins} ${diffMins === 1 ? 'minute' : 'minutes'} ago`
+    return `${diffMins}m ago`
   } else if (diffHours < 24) {
     return `${diffHours}h ago`
   } else if (diffDays < 7) {

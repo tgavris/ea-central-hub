@@ -386,7 +386,7 @@ function TodoListRow({
       )}
 
       {/* Date */}
-      <span className="hidden lg:block text-xs text-muted-foreground shrink-0 w-24 text-right">
+      <span className="hidden lg:block text-xs text-muted-foreground shrink-0 w-24 text-center">
         {formatDistanceToNow(todo.createdAt)}
       </span>
 
@@ -498,7 +498,7 @@ function InsightListRow({
       </div>
 
       {/* Date */}
-      <span className="hidden lg:block text-xs text-muted-foreground shrink-0 w-24 text-right pt-0.5">
+      <span className="hidden lg:block text-xs text-muted-foreground shrink-0 w-24 text-center">
         {formatDistanceToNow(insight.timestamp)}
       </span>
     </div>
