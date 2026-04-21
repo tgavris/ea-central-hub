@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+
 import { useTheme } from 'next-themes'
 import {
   Sidebar,
@@ -15,20 +15,13 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
 } from '@/components/ui/sidebar'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { 
   Mail, 
-  Paperclip, 
   Users, 
   Settings,
   Boxes,
-  ChevronRight,
-  MessageSquare,
   Moon,
   Sun,
 } from 'lucide-react'
@@ -47,8 +40,7 @@ export function AppSidebar() {
   const totalAttentionCount = insights.filter(isNeedsAttention).length
   
   const isInsightsActive = pathname.startsWith('/insights') || pathname.startsWith('/todo')
-  const isInboxActive = pathname.startsWith('/inbox') || pathname.startsWith('/clippings')
-  const [inboxOpen, setInboxOpen] = useState(isInboxActive)
+  const isInboxActive = pathname.startsWith('/inbox')
 
   return (
     <Sidebar className="border-r-0">
@@ -66,61 +58,22 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {/* Inbox — collapsible with sub-items */}
-              <Collapsible open={inboxOpen} onOpenChange={setInboxOpen} asChild>
-                <SidebarMenuItem>
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuButton
-                      isActive={isInboxActive}
-                      className={cn(
-                        'px-4 py-2 text-sm',
-                        isInboxActive && 'bg-sidebar-accent text-sidebar-accent-foreground'
-                      )}
-                    >
-                      <Mail className="h-4 w-4" />
-                      <span className="flex-1">Inbox</span>
-                      <ChevronRight className={cn('h-3.5 w-3.5 transition-transform', inboxOpen && 'rotate-90')} />
-                    </SidebarMenuButton>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <SidebarMenuSub>
-                      <SidebarMenuSubItem>
-                        <SidebarMenuSubButton
-                          asChild
-                          isActive={pathname === '/inbox'}
-                        >
-                          <Link href="/inbox">
-                            <Mail className="h-3.5 w-3.5" />
-                            <span>Email</span>
-                          </Link>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                      <SidebarMenuSubItem>
-                        <SidebarMenuSubButton
-                          asChild
-                          isActive={pathname === '/inbox/slack'}
-                        >
-                          <Link href="/inbox/slack">
-                            <MessageSquare className="h-3.5 w-3.5" />
-                            <span>Slack</span>
-                          </Link>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                      <SidebarMenuSubItem>
-                        <SidebarMenuSubButton
-                          asChild
-                          isActive={pathname === '/clippings'}
-                        >
-                          <Link href="/clippings">
-                            <Paperclip className="h-3.5 w-3.5" />
-                            <span>Clippings</span>
-                          </Link>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    </SidebarMenuSub>
-                  </CollapsibleContent>
-                </SidebarMenuItem>
-              </Collapsible>
+              {/* Inbox — single flat link */}
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={isInboxActive}
+                  className={cn(
+                    'px-4 py-2 text-sm',
+                    isInboxActive && 'bg-sidebar-accent text-sidebar-accent-foreground'
+                  )}
+                >
+                  <Link href="/inbox">
+                    <Mail className="h-4 w-4" />
+                    <span>Inbox</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
 
               {/* Other nav items */}
               {otherNavItems.map((item) => {
