@@ -86,7 +86,7 @@ export function ColleagueTodoClient({ colleagueId }: ColleagueTodoClientProps) {
               </Link>
             ))}
           </div>
-          <Button variant="outline" size="sm" className="text-xs h-8 mb-px">
+          <Button size="sm" className="text-xs h-8 mb-px bg-[#2251FF] text-white hover:bg-[#2251FF]/90">
             Create EOD Summary
           </Button>
         </div>
