@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { Plus, Mail, Calendar, Plane, FileText, AlertTriangle, X, Zap, Sparkles, ArrowRight, ArrowLeft, ExternalLink, ChevronDown, MoreHorizontal, Trash2, CheckCircle2, PenLine } from 'lucide-react'
+import { Plus, Mail, Calendar, Plane, FileText, AlertTriangle, X, Zap, Sparkles, ArrowRight, ArrowLeft, ChevronDown, MoreHorizontal, Trash2, CheckCircle2, PenLine } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { Insight, TodoItem, TodoStatus, TodoSpeed, TodoUrgency, TodoViewBy } from '@/lib/types'
 import { useTodo } from '@/lib/todo-context'
@@ -67,15 +67,10 @@ function InsightModal({
 }: {
   insight: Insight
   onClose: () => void
-  onMoveTo: (status: TodoStatus, urgency: TodoUrgency, speed: TodoSpeed) => void
+  onMoveTo: (status: TodoStatus) => void
 }) {
   const Icon = TYPE_ICON[insight.type] ?? FileText
   const colleagueName = getColleagueName(insight.colleagueId)
-
-  const defaultUrgency: TodoUrgency =
-    insight.urgency === 'urgent' ? 'high' : insight.badge ? 'medium' : 'low'
-  const [selectedUrgency, setSelectedUrgency] = useState<TodoUrgency>(defaultUrgency)
-  const [selectedSpeed, setSelectedSpeed] = useState<TodoSpeed>('medium')
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
@@ -87,7 +82,7 @@ function InsightModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
       <div
-        className="relative z-10 w-full max-w-xl max-h-[85vh] bg-background rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+        className="relative z-10 w-full max-w-4xl max-h-[90vh] bg-background rounded-2xl shadow-2xl flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="px-6 pt-5 pb-4 border-b shrink-0">
@@ -125,85 +120,27 @@ function InsightModal({
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-6 py-5">
+        <div className="flex-1 overflow-y-auto">
           <InsightDetailBody insight={insight} />
         </div>
 
         <div className="px-6 py-4 border-t bg-muted/20 shrink-0 space-y-3">
-          <div className="flex items-start gap-6">
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-1.5">Urgency</p>
-              <div className="flex items-center gap-1">
-                {([
-                  { id: 'high',   label: 'High',   dot: 'bg-red-500' },
-                  { id: 'medium', label: 'Medium',  dot: 'bg-amber-400' },
-                  { id: 'low',    label: 'Low',     dot: 'bg-muted-foreground/40' },
-                ] as { id: TodoUrgency; label: string; dot: string }[]).map((opt) => (
-                  <button
-                    key={opt.id}
-                    onClick={() => setSelectedUrgency(opt.id)}
-                    className={cn(
-                      'flex items-center gap-1.5 text-xs font-medium border rounded-md px-2.5 py-1 transition-colors',
-                      selectedUrgency === opt.id
-                        ? 'bg-muted text-foreground border-border'
-                        : 'border-border text-muted-foreground hover:bg-muted'
-                    )}
-                  >
-                    <span className={cn('h-1.5 w-1.5 rounded-full', selectedUrgency === opt.id ? opt.dot : 'bg-muted-foreground/30')} />
-                    {opt.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-1.5">Speed</p>
-              <div className="flex items-center gap-1">
-                {([
-                  { id: 'quick',  label: 'Quick' },
-                  { id: 'medium', label: 'Medium' },
-                  { id: 'long',   label: 'Long' },
-                ] as { id: TodoSpeed; label: string }[]).map((opt) => (
-                  <button
-                    key={opt.id}
-                    onClick={() => setSelectedSpeed(opt.id)}
-                    className={cn(
-                      'text-xs font-medium border rounded-md px-2.5 py-1 transition-colors',
-                      selectedSpeed === opt.id
-                        ? 'bg-muted text-foreground border-border'
-                        : 'border-border text-muted-foreground hover:bg-muted'
-                    )}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-1.5">Move to</p>
             <div className="flex items-center gap-2">
               {([
                 { id: 'in-progress', label: 'In progress' },
                 { id: 'done',        label: 'Done' },
-                { id: 'snoozed',     label: 'Snoozed' },
               ] as { id: TodoStatus; label: string }[]).map((col) => (
                 <button
                   key={col.id}
-                  onClick={() => { onMoveTo(col.id, selectedUrgency, selectedSpeed); onClose() }}
+                  onClick={() => { onMoveTo(col.id); onClose() }}
                   className="flex items-center gap-1.5 text-xs font-medium border border-border rounded-md px-3 py-1.5 hover:bg-muted transition-colors"
                 >
                   <ArrowRight className="h-3 w-3" />
                   {col.label}
                 </button>
               ))}
-              <Link
-                href={`/insights/${insight.colleagueId}/${insight.id}`}
-                className="ml-auto text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
-              >
-                Full detail <ExternalLink className="h-3 w-3" />
-              </Link>
             </div>
           </div>
         </div>
