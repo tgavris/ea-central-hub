@@ -25,9 +25,15 @@ export default function TodoPage() {
   
   const tabs = [
     { label: 'Insights', href: '/todo', count: todoCount },
+    { label: 'Teams', href: '/teams' },
+    { label: 'Desk Notes', href: '/desk-notes' },
+    { label: 'Preferences', href: '/preferences' },
   ]
 
-  const isActive = (href: string) => pathname === '/todo' || pathname.startsWith('/todo/')
+  const isActive = (href: string) => {
+    if (href === '/todo') return pathname === '/todo' || pathname.startsWith('/todo/')
+    return pathname === href || pathname.startsWith(href + '/')
+  }
 
   return (
     <div className="flex flex-col h-full">

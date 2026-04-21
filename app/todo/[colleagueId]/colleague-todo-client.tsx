@@ -29,12 +29,16 @@ export function ColleagueTodoClient({ colleagueId }: ColleagueTodoClientProps) {
   const collegeTodos = todos.filter(t => t.colleagueId === colleagueId && t.status !== 'done')
   const todoCount = collegeTodos.length
   const insightCount = getNeedsAttentionCount(insights)
+  const colleagueNameLower = colleague.name.toLowerCase().replace(' ', '-')
 
   const tabs = [
     { label: 'Insights', href: `/todo/${colleagueId}`, count: todoCount },
+    { label: 'Teams', href: `/teams/${colleagueNameLower}` },
+    { label: 'Desk Notes', href: `/desk-notes/${colleagueNameLower}` },
+    { label: 'Preferences', href: `/preferences/${colleagueNameLower}` },
   ]
 
-  const isActive = (href: string) => pathname === `/todo/${colleagueId}`
+  const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/')
 
   return (
     <div className="flex flex-col h-full">

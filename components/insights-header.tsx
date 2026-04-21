@@ -17,9 +17,15 @@ export function InsightsHeader({ colleagueName, insightCount, todoCount = 0 }: I
   
   const tabs = [
     { label: 'Insights', href: '/todo', count: todoCount },
+    { label: 'Teams', href: colleagueName ? `/teams/${colleagueName.toLowerCase().replace(' ', '-')}` : '/teams' },
+    { label: 'Desk Notes', href: colleagueName ? `/desk-notes/${colleagueName.toLowerCase().replace(' ', '-')}` : '/desk-notes' },
+    { label: 'Preferences', href: colleagueName ? `/preferences/${colleagueName.toLowerCase().replace(' ', '-')}` : '/preferences' },
   ]
 
-  const isActive = (href: string) => pathname === '/todo' || pathname.startsWith('/todo/')
+  const isActive = (href: string) => {
+    if (href === '/todo') return pathname === '/todo' || pathname.startsWith('/todo/')
+    return pathname === href || pathname.startsWith(href + '/')
+  }
 
   return (
     <header className="sticky top-0 z-10 bg-background border-b">

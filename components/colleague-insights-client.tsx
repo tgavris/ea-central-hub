@@ -17,11 +17,16 @@ interface ColleagueInsightsClientProps {
 export function ColleagueInsightsClient({ colleague, colleagueId, insights, attentionCount }: ColleagueInsightsClientProps) {
   const pathname = usePathname()
 
+  const colleagueNameLower = colleague.name.toLowerCase().replace(' ', '-')
+  
   const tabs = [
     { label: 'Insights', href: `/todo/${colleagueId}`, count: insights.length },
+    { label: 'Teams', href: `/teams/${colleagueNameLower}` },
+    { label: 'Desk Notes', href: `/desk-notes/${colleagueNameLower}` },
+    { label: 'Preferences', href: `/preferences/${colleagueNameLower}` },
   ]
 
-  const isActive = (href: string) => pathname === `/todo/${colleagueId}`
+  const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/')
 
   return (
     <InsightsPageClient>
