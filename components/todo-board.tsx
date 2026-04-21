@@ -298,11 +298,13 @@ function TodoListRow({
   onClick,
   onRemove,
   onStatusChange,
+  hideColleagueName = false,
 }: {
   todo: TodoItem
   onClick: () => void
   onRemove: (id: string) => void
   onStatusChange: (id: string, status: TodoStatus) => void
+  hideColleagueName?: boolean
 }) {
   const colleagueName = getColleagueName(todo.colleagueId)
   const isDone = todo.status === 'done'
@@ -340,9 +342,11 @@ function TodoListRow({
 
       {/* Tags */}
       <div className="hidden md:flex items-center gap-1.5 shrink-0">
-        <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-          {colleagueName}
-        </span>
+        {!hideColleagueName && (
+          <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
+            {colleagueName}
+          </span>
+        )}
         <span className={cn(
           'text-xs px-2 py-0.5 rounded-full capitalize',
           todo.urgency === 'high' && 'bg-red-50 text-red-600 dark:bg-red-950 dark:text-red-400',
@@ -385,9 +389,11 @@ function TodoListRow({
 function InsightListRow({
   insight,
   onClick,
+  hideColleagueName = false,
 }: {
   insight: Insight
   onClick: () => void
+  hideColleagueName?: boolean
 }) {
   const colleagueName = getColleagueName(insight.colleagueId)
   const Icon = TYPE_ICON[insight.type] ?? FileText
@@ -407,9 +413,11 @@ function InsightListRow({
 
       {/* Tags */}
       <div className="hidden md:flex items-center gap-1.5 shrink-0">
-        <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-          {colleagueName}
-        </span>
+        {!hideColleagueName && (
+          <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
+            {colleagueName}
+          </span>
+        )}
         {insight.badge && (
           <span className="text-xs bg-muted text-muted-foreground px-2 py-0.5 rounded-full flex items-center gap-1">
             {insight.badge === 'Decision needed' && <Zap className="h-2.5 w-2.5" />}
@@ -587,6 +595,7 @@ export function TodoBoard({ viewBy, colleagueId }: TodoBoardProps) {
               onClick={() => handleTodoCardClick(todo)}
               onRemove={removeTodo}
               onStatusChange={updateTodoStatus}
+              hideColleagueName={!!colleagueId}
             />
           ))}
         </Section>
@@ -659,6 +668,7 @@ export function TodoBoard({ viewBy, colleagueId }: TodoBoardProps) {
                 onClick={() => handleTodoCardClick(todo)}
                 onRemove={removeTodo}
                 onStatusChange={updateTodoStatus}
+                hideColleagueName={!!colleagueId}
               />
             ))}
             {queuedTodos.length > 0 && columnInsights.length > 0 && (
@@ -673,6 +683,7 @@ export function TodoBoard({ viewBy, colleagueId }: TodoBoardProps) {
                 key={insight.id}
                 insight={insight}
                 onClick={() => setModalInsight(insight)}
+                hideColleagueName={!!colleagueId}
               />
             ))}
           </Section>
@@ -707,6 +718,7 @@ export function TodoBoard({ viewBy, colleagueId }: TodoBoardProps) {
                     onClick={() => handleTodoCardClick(todo)}
                     onRemove={removeTodo}
                     onStatusChange={updateTodoStatus}
+                    hideColleagueName={!!colleagueId}
                   />
                 ))}
               </Section>
@@ -725,6 +737,7 @@ export function TodoBoard({ viewBy, colleagueId }: TodoBoardProps) {
                     onClick={() => handleTodoCardClick(todo)}
                     onRemove={removeTodo}
                     onStatusChange={updateTodoStatus}
+                    hideColleagueName={!!colleagueId}
                   />
                 ))}
               </Section>
