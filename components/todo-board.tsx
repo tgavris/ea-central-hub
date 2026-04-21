@@ -553,9 +553,10 @@ function Section({
 interface TodoBoardProps {
   viewBy: TodoViewBy
   colleagueId?: string
+  search?: string
 }
 
-export function TodoBoard({ viewBy, colleagueId }: TodoBoardProps) {
+export function TodoBoard({ viewBy, colleagueId, search = '' }: TodoBoardProps) {
   const { todos, updateTodoStatus, addTodo, removeTodo } = useTodo()
   const [modalInsight, setModalInsight] = useState<Insight | null>(null)
   const [modalTodo, setModalTodo] = useState<TodoItem | null>(null)
@@ -615,7 +616,10 @@ export function TodoBoard({ viewBy, colleagueId }: TodoBoardProps) {
     })
   }
 
-  const filteredTodos = colleagueId ? todos.filter((t) => t.colleagueId === colleagueId) : todos
+  const searchLower = search.toLowerCase()
+
+  const filteredTodos = (colleagueId ? todos.filter((t) => t.colleagueId === colleagueId) : todos)
+    .filter((t) => !searchLower || t.title.toLowerCase().includes(searchLower))
 
   const getTodosByStatus = (status: TodoStatus) =>
     filteredTodos.filter((t) => t.status === status)
@@ -632,6 +636,7 @@ export function TodoBoard({ viewBy, colleagueId }: TodoBoardProps) {
     ? insights.filter((i) => i.colleagueId === colleagueId)
     : insights
   ).filter((i) => !todoInsightIds.has(i.id))
+   .filter((i) => !searchLower || i.title.toLowerCase().includes(searchLower))
 
   const queuedTodos = getTodosByStatus('todo')
 
