@@ -10,7 +10,7 @@ import { InsightDetailBody } from '@/components/insight-detail-body'
 import { colleagues } from '@/lib/data/colleagues'
 import { insights } from '@/lib/data/insights'
 import { getColleagueName } from '@/lib/data/colleagues'
-import { formatDateTime, formatDistanceToNow } from '@/lib/format-date'
+import { formatDistanceToNow } from '@/lib/format-date'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -116,7 +116,7 @@ function InsightModal({
                 <span className="opacity-40">·</span>
                 <span>{colleagueName}</span>
                 <span className="opacity-40">·</span>
-                <span>{formatDateTime(insight.timestamp)}</span>
+                <span>{formatDistanceToNow(insight.timestamp)}</span>
               </div>
             </div>
             <button onClick={onClose} className="shrink-0 p-1.5 rounded-lg hover:bg-muted transition-colors text-muted-foreground">
@@ -435,7 +435,7 @@ function InsightListRow({
 
       {/* Date */}
       <span className="hidden lg:block text-xs text-muted-foreground shrink-0 w-24 text-right">
-        {formatDateTime(insight.timestamp)}
+        {formatDistanceToNow(insight.timestamp)}
       </span>
 
       {/* Spacer for the menu button column */}
