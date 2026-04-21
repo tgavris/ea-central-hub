@@ -345,21 +345,13 @@ function TodoListRow({
       </span>
 
       {/* Tags */}
-      <div className="hidden md:flex items-center gap-1.5 shrink-0">
-        {!hideColleagueName && (
+      {!hideColleagueName && (
+        <div className="hidden md:flex items-center gap-1.5 shrink-0">
           <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
             {colleagueName}
           </span>
-        )}
-        <span className={cn(
-          'text-xs px-2 py-0.5 rounded-full capitalize',
-          todo.urgency === 'high' && 'bg-red-50 text-red-600 dark:bg-red-950 dark:text-red-400',
-          todo.urgency === 'medium' && 'bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400',
-          todo.urgency === 'low' && 'bg-muted text-muted-foreground',
-        )}>
-          {todo.urgency}
-        </span>
-      </div>
+        </div>
+      )}
 
       {/* In-progress action buttons */}
       {(showMoveToDone || onBackToInsights) && (
@@ -429,20 +421,20 @@ function InsightListRow({
 
   return (
     <div
-      className="group flex items-start gap-3 px-4 py-2.5 hover:bg-muted/40 transition-colors border-b border-border/50 last:border-b-0 cursor-pointer"
+      className="group flex items-center gap-3 px-4 py-2.5 hover:bg-muted/40 transition-colors border-b border-border/50 last:border-b-0 cursor-pointer"
       onClick={onClick}
     >
       {/* Icon circle */}
-      <div className="shrink-0 mt-1 h-4 w-4 rounded-full border-2 border-border flex items-center justify-center">
+      <div className="shrink-0 h-4 w-4 rounded-full border-2 border-border flex items-center justify-center">
         <Icon className="h-2 w-2 text-muted-foreground" />
       </div>
 
       {/* Origin icon */}
       {insight.origin === 'ai' && (
-        <Sparkles className="h-3.5 w-3.5 text-violet-400 shrink-0 mt-0.5" aria-label="AI generated" />
+        <Sparkles className="h-3.5 w-3.5 text-violet-400 shrink-0" aria-label="AI generated" />
       )}
       {insight.origin === 'manual' && (
-        <PenLine className="h-3.5 w-3.5 text-muted-foreground shrink-0 mt-0.5" aria-label="Manual task" />
+        <PenLine className="h-3.5 w-3.5 text-muted-foreground shrink-0" aria-label="Manual task" />
       )}
 
       {/* Title + description */}
@@ -476,7 +468,7 @@ function InsightListRow({
       </div>
 
       {/* Action buttons */}
-      <div className="flex items-center gap-1 shrink-0 pt-0.5">
+      <div className="flex items-center gap-1 shrink-0">
         {onMoveToInProgress && (
           <button
             onClick={(e) => { e.stopPropagation(); onMoveToInProgress() }}
@@ -791,24 +783,7 @@ export function TodoBoard({ viewBy, colleagueId }: TodoBoardProps) {
             )
           })()}
 
-          {/* Snoozed */}
-          {(() => {
-            const items = getTodosByStatus('snoozed')
-            return (
-              <Section title="Snoozed" dot="bg-muted-foreground/40" count={items.length} defaultOpen={false}>
-                {items.map((todo) => (
-                  <TodoListRow
-                    key={todo.id}
-                    todo={todo}
-                    onClick={() => handleTodoCardClick(todo)}
-                    onRemove={removeTodo}
-                    onStatusChange={updateTodoStatus}
-                    hideColleagueName={!!colleagueId}
-                  />
-                ))}
-              </Section>
-            )
-          })()}
+
         </>
       )}
 
