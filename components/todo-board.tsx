@@ -432,24 +432,29 @@ function InsightListRow({
 
   return (
     <div
-      className="group flex items-center gap-3 px-4 py-2.5 hover:bg-muted/40 transition-colors border-b border-border/50 last:border-b-0 cursor-pointer"
+      className="group flex items-start gap-3 px-4 py-2.5 hover:bg-muted/40 transition-colors border-b border-border/50 last:border-b-0 cursor-pointer"
       onClick={onClick}
     >
-      {/* Icon circle instead of checkbox */}
-      <div className="shrink-0 h-4 w-4 rounded-full border-2 border-border flex items-center justify-center">
+      {/* Icon circle */}
+      <div className="shrink-0 mt-1 h-4 w-4 rounded-full border-2 border-border flex items-center justify-center">
         <Icon className="h-2 w-2 text-muted-foreground" />
       </div>
 
       {/* Origin icon */}
       {insight.origin === 'ai' && (
-        <Sparkles className="h-3.5 w-3.5 text-violet-400 shrink-0" aria-label="AI generated" />
+        <Sparkles className="h-3.5 w-3.5 text-violet-400 shrink-0 mt-0.5" aria-label="AI generated" />
       )}
       {insight.origin === 'manual' && (
-        <PenLine className="h-3.5 w-3.5 text-muted-foreground shrink-0" aria-label="Manual task" />
+        <PenLine className="h-3.5 w-3.5 text-muted-foreground shrink-0 mt-0.5" aria-label="Manual task" />
       )}
 
-      {/* Title */}
-      <span className="flex-1 text-sm text-foreground truncate">{insight.title}</span>
+      {/* Title + description */}
+      <div className="flex-1 min-w-0">
+        <span className="text-sm font-medium text-foreground">{insight.title}</span>
+        {insight.description && (
+          <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{insight.description}</p>
+        )}
+      </div>
 
       {/* Tags */}
       <div className="hidden md:flex items-center gap-1.5 shrink-0">
@@ -474,12 +479,12 @@ function InsightListRow({
       </div>
 
       {/* Date */}
-      <span className="hidden lg:block text-xs text-muted-foreground shrink-0 w-24 text-right">
+      <span className="hidden lg:block text-xs text-muted-foreground shrink-0 w-24 text-right pt-0.5">
         {formatDistanceToNow(insight.timestamp)}
       </span>
 
       {/* Action buttons */}
-      <div className="hidden group-hover:flex items-center gap-1 shrink-0">
+      <div className="hidden group-hover:flex items-center gap-1 shrink-0 pt-0.5">
         {onMoveToInProgress && (
           <button
             onClick={(e) => { e.stopPropagation(); onMoveToInProgress() }}
