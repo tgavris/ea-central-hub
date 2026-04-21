@@ -113,6 +113,21 @@ function InsightModal({
                 <span className="opacity-40">·</span>
                 <span>{formatDistanceToNow(insight.timestamp)}</span>
               </div>
+              <div className="flex items-center gap-2 mt-3">
+                {([
+                  { id: 'in-progress', label: 'In progress' },
+                  { id: 'done',        label: 'Done' },
+                ] as { id: TodoStatus; label: string }[]).map((col) => (
+                  <button
+                    key={col.id}
+                    onClick={() => { onMoveTo(col.id); onClose() }}
+                    className="flex items-center gap-1.5 text-xs font-medium border border-border rounded-md px-3 py-1.5 hover:bg-muted transition-colors"
+                  >
+                    <ArrowRight className="h-3 w-3" />
+                    {col.label}
+                  </button>
+                ))}
+              </div>
             </div>
             <button onClick={onClose} className="shrink-0 p-1.5 rounded-lg hover:bg-muted transition-colors text-muted-foreground">
               <X className="h-4 w-4" />
@@ -122,27 +137,6 @@ function InsightModal({
 
         <div className="flex-1 overflow-y-auto">
           <InsightDetailBody insight={insight} />
-        </div>
-
-        <div className="px-6 py-4 border-t bg-muted/20 shrink-0 space-y-3">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-1.5">Move to</p>
-            <div className="flex items-center gap-2">
-              {([
-                { id: 'in-progress', label: 'In progress' },
-                { id: 'done',        label: 'Done' },
-              ] as { id: TodoStatus; label: string }[]).map((col) => (
-                <button
-                  key={col.id}
-                  onClick={() => { onMoveTo(col.id); onClose() }}
-                  className="flex items-center gap-1.5 text-xs font-medium border border-border rounded-md px-3 py-1.5 hover:bg-muted transition-colors"
-                >
-                  <ArrowRight className="h-3 w-3" />
-                  {col.label}
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -182,6 +176,25 @@ function TodoModal({
                 <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded">{colleagueName}</span>
               </div>
               <h2 className="text-base font-semibold text-foreground leading-snug">{todo.title}</h2>
+              <div className="flex items-center gap-2 mt-3">
+                {([
+                  { id: 'todo',        label: 'Insights' },
+                  { id: 'in-progress', label: 'In progress' },
+                  { id: 'done',        label: 'Done' },
+                  { id: 'snoozed',     label: 'Snoozed' },
+                ] as { id: TodoStatus; label: string }[])
+                  .filter((col) => col.id !== todo.status)
+                  .map((col) => (
+                    <button
+                      key={col.id}
+                      onClick={() => onMoveTo(col.id)}
+                      className="flex items-center gap-1.5 text-xs font-medium border border-border rounded-md px-3 py-1.5 hover:bg-muted transition-colors"
+                    >
+                      <ArrowRight className="h-3 w-3" />
+                      {col.label}
+                    </button>
+                  ))}
+              </div>
             </div>
             <button onClick={onClose} className="shrink-0 p-1.5 rounded-lg hover:bg-muted transition-colors text-muted-foreground">
               <X className="h-4 w-4" />
@@ -199,29 +212,6 @@ function TodoModal({
               <p className="text-sm text-foreground leading-relaxed">{todo.description}</p>
             </div>
           )}
-        </div>
-
-        <div className="px-6 py-4 border-t bg-muted/20 shrink-0">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-1.5">Move to</p>
-          <div className="flex items-center gap-2">
-            {([
-              { id: 'todo',        label: 'Insights' },
-              { id: 'in-progress', label: 'In progress' },
-              { id: 'done',        label: 'Done' },
-              { id: 'snoozed',     label: 'Snoozed' },
-            ] as { id: TodoStatus; label: string }[])
-              .filter((col) => col.id !== todo.status)
-              .map((col) => (
-                <button
-                  key={col.id}
-                  onClick={() => onMoveTo(col.id)}
-                  className="flex items-center gap-1.5 text-xs font-medium border border-border rounded-md px-3 py-1.5 hover:bg-muted transition-colors"
-                >
-                  <ArrowRight className="h-3 w-3" />
-                  {col.label}
-                </button>
-              ))}
-          </div>
         </div>
       </div>
     </div>
