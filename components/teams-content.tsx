@@ -110,8 +110,8 @@ export function TeamsContent() {
       </div>
 
       {/* Info for Team Assistant(s) */}
-      <div className="border border-border rounded-lg p-4 bg-muted/20">
-        <p className="text-center text-sm font-medium text-foreground">Info for Team Assistant(s)</p>
+      <div className="pt-2">
+        <h2 className="text-lg font-semibold text-foreground">Info for Team Assistant(s)</h2>
       </div>
 
       {/* Leadership Section */}
