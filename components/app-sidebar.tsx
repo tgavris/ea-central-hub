@@ -55,52 +55,6 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent>
-        {/* Navigation Section */}
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {/* Inbox — single flat link */}
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  isActive={isInboxActive}
-                  className={cn(
-                    'px-4 py-2 text-sm',
-                    isInboxActive && 'bg-sidebar-accent text-sidebar-accent-foreground'
-                  )}
-                >
-                  <Link href="/inbox">
-                    <Mail className="h-4 w-4" />
-                    <span>Inbox</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-
-              {/* Other nav items */}
-              {otherNavItems.map((item) => {
-                const isActive = pathname === item.href
-                return (
-                  <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                      asChild
-                      isActive={isActive}
-                      className={cn(
-                        'px-4 py-2 text-sm',
-                        isActive && 'bg-sidebar-accent text-sidebar-accent-foreground'
-                      )}
-                    >
-                      <Link href={item.href}>
-                        <item.icon className="h-4 w-4" />
-                        <span>{item.label}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                )
-              })}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
         {/* Insights Section */}
         <SidebarGroup>
           <SidebarGroupLabel className="text-[#757575] text-xs font-medium uppercase tracking-wider px-4">
@@ -148,6 +102,52 @@ export function AppSidebar() {
                           {colleague.name}
                         </span>
                         <span className="text-xs text-sidebar-muted">{count}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Navigation Section */}
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {/* Inbox — single flat link */}
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={isInboxActive}
+                  className={cn(
+                    'px-4 py-2 text-sm',
+                    isInboxActive && 'bg-sidebar-accent text-sidebar-accent-foreground'
+                  )}
+                >
+                  <Link href="/inbox">
+                    <Mail className="h-4 w-4" />
+                    <span>Inbox</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+
+              {/* Other nav items */}
+              {otherNavItems.map((item) => {
+                const isActive = pathname === item.href
+                return (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActive}
+                      className={cn(
+                        'px-4 py-2 text-sm',
+                        isActive && 'bg-sidebar-accent text-sidebar-accent-foreground'
+                      )}
+                    >
+                      <Link href={item.href}>
+                        <item.icon className="h-4 w-4" />
+                        <span>{item.label}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
