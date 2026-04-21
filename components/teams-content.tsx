@@ -123,7 +123,7 @@ export function TeamsContent() {
               <RefreshCw className="h-3 w-3" />
               from Engage
             </span>
-            <Button size="sm" className="h-8 text-xs bg-[#2251FF] hover:bg-[#2251FF]/90">
+            <Button size="sm" className="h-8 text-xs bg-foreground text-background hover:bg-foreground/90">
               Add as group in Sharecal
             </Button>
           </div>
@@ -173,7 +173,7 @@ export function TeamsContent() {
             </span>
             <Button
               size="sm"
-              className="h-8 text-xs bg-[#2251FF] hover:bg-[#2251FF]/90"
+              className="h-8 text-xs bg-foreground text-background hover:bg-foreground/90"
               onClick={copyAllEmails}
             >
               {copiedEmail === 'all' ? 'Copied!' : 'Copy emails'}
