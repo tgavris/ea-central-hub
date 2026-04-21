@@ -37,7 +37,8 @@ export default async function ColleagueTeamInsightsPage({ params }: ColleagueTea
         <InsightsHeader 
           colleagueName={colleague.name}
           team={decodedTeamName}
-          insightCount={attentionCount} 
+          insightCount={attentionCount}
+          todoCount={insights.length}
         />
         
         <main className="flex-1 overflow-auto p-6">

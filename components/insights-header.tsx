@@ -4,18 +4,15 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { useTodo } from '@/lib/todo-context'
 
 interface InsightsHeaderProps {
   colleagueName?: string
   insightCount?: number
+  todoCount?: number
 }
 
-export function InsightsHeader({ colleagueName, insightCount }: InsightsHeaderProps) {
+export function InsightsHeader({ colleagueName, insightCount, todoCount = 0 }: InsightsHeaderProps) {
   const pathname = usePathname()
-  const { todos } = useTodo()
-  
-  const todoCount = todos.filter(t => t.status !== 'done').length
   const title = colleagueName ? `Insights for ${colleagueName}` : 'All Insights'
   
   const tabs = [

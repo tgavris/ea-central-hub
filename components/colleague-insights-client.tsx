@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { InsightsList } from '@/components/insights-list'
 import { InsightsPageClient } from '@/components/insights-page-client'
-import { useTodo } from '@/lib/todo-context'
 import type { Insight } from '@/lib/types'
 
 interface ColleagueInsightsClientProps {
@@ -17,13 +16,10 @@ interface ColleagueInsightsClientProps {
 
 export function ColleagueInsightsClient({ colleague, colleagueId, insights, attentionCount }: ColleagueInsightsClientProps) {
   const pathname = usePathname()
-  const { todos } = useTodo()
-
-  const todoCount = todos.filter(t => t.colleagueId === colleagueId && t.status !== 'done').length
 
   const tabs = [
     { label: 'Insights', href: `/insights/${colleagueId}`, count: attentionCount },
-    { label: 'To do', href: `/todo/${colleagueId}`, count: todoCount },
+    { label: 'To do', href: `/todo/${colleagueId}`, count: insights.length },
   ]
 
   const isActive = (href: string) => pathname === href
