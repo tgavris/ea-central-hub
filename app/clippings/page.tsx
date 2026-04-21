@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { Upload, ImageIcon, FileText, Clock, Tag, Hash, Mail, Search, Star, Reply, Forward, MoreHorizontal, Paperclip, Send, Smile, AtSign, Bold, Italic, Link2 } from 'lucide-react'
+import { ImageIcon, FileText, Clock, Tag, Hash, Mail, Search, Star, Reply, Forward, MoreHorizontal, Paperclip, Send, Smile, AtSign, Bold, Italic, Link2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 type ScreenshotType = 'slack' | 'outlook' | 'uploaded'
@@ -235,7 +235,7 @@ function OutlookScreenshot({ clip }: { clip: Clipping }) {
       body: [
         'Hi Travel Desk,',
         'Please process the following travel for Partner James Whitfield:',
-        '✈️ Departure: May 19, LHR → NRT (Business)\n✈️ Return: May 22, NRT → LHR (Business)\n🏨 Hotel: The Peninsula Tokyo (May 19–22)\n🚗 Ground: Nippon Limousine both ways',
+        '✈️ Departure: May 19, LHR → NRT (Business)\n✈️ Return: May 22, NRT → LHR (Business)\n🏨 Hotel: The Peninsula Tokyo (May 19–22)\n�� Ground: Nippon Limousine both ways',
         'Purpose: Relationship management and Q2 business review with Nomura leadership. Pre-approved under client engagement budget.',
         'Please confirm once booked. James prefers window seats.',
         'Thanks,\nAlex Morgan\nExecutive Assistant to James Whitfield',
@@ -414,18 +414,11 @@ export default function ClippingsPage() {
   return (
     <div className="flex flex-col h-full overflow-hidden">
       <header className="sticky top-0 z-10 bg-background border-b shrink-0">
-        <div className="flex items-center justify-between px-6 py-4">
+        <div className="px-6 py-4">
           <div>
             <h1 className="text-lg font-semibold text-foreground">Clippings</h1>
             <p className="text-sm text-muted-foreground">Saved screenshots and notes from connected channels</p>
           </div>
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            className="flex items-center gap-2 bg-primary text-primary-foreground text-sm font-medium px-3.5 py-2 rounded-lg hover:bg-primary/90 transition-colors"
-          >
-            <Upload className="h-4 w-4" />
-            Upload screenshot
-          </button>
           <input
             ref={fileInputRef}
             type="file"
@@ -528,6 +521,16 @@ export default function ClippingsPage() {
                     {selected.transcript}
                   </pre>
                 </div>
+              </section>
+
+              {/* Call to action */}
+              <section className="flex gap-3">
+                <button className="flex-1 bg-primary text-primary-foreground text-sm font-medium px-4 py-2.5 rounded-lg hover:bg-primary/90 transition-colors">
+                  Add to Insights
+                </button>
+                <button className="flex-1 border border-border text-foreground text-sm font-medium px-4 py-2.5 rounded-lg hover:bg-muted transition-colors">
+                  Add to In Progress
+                </button>
               </section>
 
               <div className="pb-4" />
