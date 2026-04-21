@@ -5,6 +5,7 @@ import { Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { TodoBoard } from '@/components/todo-board'
+import { PreferencesContent } from '@/components/preferences-content'
 import { cn } from '@/lib/utils'
 import { useTodo } from '@/lib/todo-context'
 import { insights, getNeedsAttentionCount } from '@/lib/data/insights'
@@ -96,10 +97,7 @@ export default function TodoPage() {
           </div>
         )}
         {activeTab === 'preferences' && (
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Preferences</h2>
-            <p className="text-muted-foreground">Preferences content coming soon</p>
-          </div>
+          <PreferencesContent />
         )}
       </main>
     </div>
