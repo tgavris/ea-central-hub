@@ -136,14 +136,14 @@ function RichActionContent({ insight }: { insight: Insight }) {
   /* ── Email draft ─────────────────────────────────────────── */
   if (insight.suggestedResponse) {
     return (
-      <div className="space-y-2.5">
-        <div className="rounded-md border bg-muted/30 overflow-hidden">
-          <div className="flex items-center gap-2 px-3 py-2 border-b bg-muted/20">
-            <Mail className="h-3.5 w-3.5 text-muted-foreground" />
-            <span className="text-[11px] text-muted-foreground font-medium">Draft reply</span>
+      <div className="space-y-3">
+        <div className="rounded-lg border bg-white overflow-hidden shadow-sm">
+          <div className="flex items-center gap-2.5 px-4 py-3 border-b bg-muted/30">
+            <Mail className="h-4 w-4 text-muted-foreground" />
+            <span className="text-sm font-semibold text-foreground">Draft reply</span>
           </div>
           <textarea
-            className="w-full text-xs text-foreground bg-transparent font-sans leading-relaxed px-4 py-3 resize-none focus:outline-none min-h-[160px]"
+            className="w-full text-sm text-foreground bg-white font-sans leading-relaxed px-4 py-4 resize-none focus:outline-none min-h-[280px]"
             defaultValue={insight.suggestedResponse}
           />
         </div>
