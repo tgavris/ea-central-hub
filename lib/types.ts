@@ -16,6 +16,7 @@ export type Insight = {
   rule: string
   timestamp: Date
   urgency: InsightUrgency
+  origin?: 'ai' | 'manual'
   badge?: 'Decision needed' | 'Predicted risk'
   sources?: { label: string; url: string }[]
   suggestedResponse?: string

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { Plus, Mail, Calendar, Plane, FileText, AlertTriangle, X, Zap, Sparkles, ArrowRight, ArrowLeft, ExternalLink, ChevronDown, MoreHorizontal, Trash2, CheckCircle2 } from 'lucide-react'
+import { Plus, Mail, Calendar, Plane, FileText, AlertTriangle, X, Zap, Sparkles, ArrowRight, ArrowLeft, ExternalLink, ChevronDown, MoreHorizontal, Trash2, CheckCircle2, PenLine } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { Insight, TodoItem, TodoStatus, TodoSpeed, TodoUrgency, TodoViewBy } from '@/lib/types'
 import { useTodo } from '@/lib/todo-context'
@@ -439,6 +439,14 @@ function InsightListRow({
       <div className="shrink-0 h-4 w-4 rounded-full border-2 border-border flex items-center justify-center">
         <Icon className="h-2 w-2 text-muted-foreground" />
       </div>
+
+      {/* Origin icon */}
+      {insight.origin === 'ai' && (
+        <Sparkles className="h-3.5 w-3.5 text-violet-400 shrink-0" aria-label="AI generated" />
+      )}
+      {insight.origin === 'manual' && (
+        <PenLine className="h-3.5 w-3.5 text-muted-foreground shrink-0" aria-label="Manual task" />
+      )}
 
       {/* Title */}
       <span className="flex-1 text-sm text-foreground truncate">{insight.title}</span>
