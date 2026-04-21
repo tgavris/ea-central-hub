@@ -26,11 +26,10 @@ export function ColleagueArchiveClient({ colleagueId }: ColleagueArchiveClientPr
   const insightCount = getNeedsAttentionCount(collegeInsights)
 
   const tabs = [
-    { label: 'Insights', href: `/insights/${colleagueId}`, count: insightCount },
-    { label: 'To do', href: `/todo/${colleagueId}`, count: todoCount },
+    { label: 'Insights', href: `/todo/${colleagueId}`, count: todoCount },
   ]
 
-  const isActive = (href: string) => pathname === href
+  const isActive = (href: string) => pathname === `/todo/${colleagueId}`
 
   return (
     <div className="flex flex-col h-full">

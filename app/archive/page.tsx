@@ -15,11 +15,10 @@ export default function ArchivePage() {
   const insightCount = getNeedsAttentionCount(insights)
   
   const tabs = [
-    { label: 'Insights', href: '/insights', count: insightCount },
-    { label: 'To do', href: '/todo', count: todoCount },
+    { label: 'Insights', href: '/todo', count: todoCount },
   ]
 
-  const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/')
+  const isActive = (href: string) => pathname === '/todo' || pathname.startsWith('/todo/')
 
   return (
     <div className="flex flex-col h-full">

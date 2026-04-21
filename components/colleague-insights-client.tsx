@@ -18,11 +18,10 @@ export function ColleagueInsightsClient({ colleague, colleagueId, insights, atte
   const pathname = usePathname()
 
   const tabs = [
-    { label: 'Insights', href: `/insights/${colleagueId}`, count: attentionCount },
-    { label: 'To do', href: `/todo/${colleagueId}`, count: insights.length },
+    { label: 'Insights', href: `/todo/${colleagueId}`, count: insights.length },
   ]
 
-  const isActive = (href: string) => pathname === href
+  const isActive = (href: string) => pathname === `/todo/${colleagueId}`
 
   return (
     <InsightsPageClient>

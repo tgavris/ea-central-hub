@@ -16,18 +16,10 @@ export function InsightsHeader({ colleagueName, insightCount, todoCount = 0 }: I
   const title = colleagueName ? `Insights for ${colleagueName}` : 'All Insights'
   
   const tabs = [
-    { 
-      label: 'Insights', 
-      href: colleagueName ? pathname.split('/').slice(0, 3).join('/') : '/insights',
-      count: insightCount 
-    },
-    { label: 'To do', href: '/todo', count: todoCount },
+    { label: 'Insights', href: '/todo', count: todoCount },
   ]
 
-  const isActive = (href: string) => {
-    if (href === '/todo') return pathname === '/todo'
-    return pathname.startsWith('/insights')
-  }
+  const isActive = (href: string) => pathname === '/todo' || pathname.startsWith('/todo/')
 
   return (
     <header className="sticky top-0 z-10 bg-background border-b">
