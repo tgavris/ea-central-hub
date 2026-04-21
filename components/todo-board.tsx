@@ -475,11 +475,6 @@ function InsightListRow({
         )}
       </div>
 
-      {/* Date */}
-      <span className="hidden lg:block text-xs text-muted-foreground shrink-0 w-24 text-right pt-0.5">
-        {formatDistanceToNow(insight.timestamp)}
-      </span>
-
       {/* Action buttons */}
       <div className="flex items-center gap-1 shrink-0 pt-0.5">
         {onMoveToInProgress && (
@@ -501,6 +496,11 @@ function InsightListRow({
           </button>
         )}
       </div>
+
+      {/* Date */}
+      <span className="hidden lg:block text-xs text-muted-foreground shrink-0 w-24 text-right pt-0.5">
+        {formatDistanceToNow(insight.timestamp)}
+      </span>
     </div>
   )
 }
