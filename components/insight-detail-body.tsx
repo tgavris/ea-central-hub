@@ -15,43 +15,68 @@ export function InsightDetailBody({ insight }: { insight: Insight }) {
   const hasActionContent = !!(insight.actionStep || insight.suggestedResponse || insight.conflictSlots || insight.alternatives)
 
   return (
-    <div className="flex divide-x divide-border">
+    <div className="flex flex-col">
+      {/* Top section — Two column layout */}
+      <div className="flex divide-x divide-border">
 
-      {/* Left — Context */}
-      <div className="flex flex-col px-6 py-5 flex-1 min-w-0">
-        <div className="rounded-lg border bg-card px-4 py-4 space-y-3 h-full">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            Context
-          </p>
-          <p className="text-sm text-foreground leading-relaxed">
-            {insight.whyItMatters
-              ? `${insight.whyItMatters}${insight.whatItImpacts ? ` ${insight.whatItImpacts}` : ''}`
-              : insight.description}
-          </p>
+        {/* Left — Context */}
+        <div className="flex flex-col px-6 py-5 flex-1 min-w-0">
+          <div className="rounded-lg border bg-card px-4 py-4 space-y-3 h-full">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              Context
+            </p>
+            <p className="text-sm text-foreground leading-relaxed">
+              {insight.whyItMatters
+                ? `${insight.whyItMatters}${insight.whatItImpacts ? ` ${insight.whatItImpacts}` : ''}`
+                : insight.description}
+            </p>
 
-          {/* Sources as inline links */}
-          {insight.sources && insight.sources.length > 0 && (
-            <div className="flex items-center gap-2 pt-2 border-t border-border">
-              <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">Sources:</span>
-              <div className="flex items-center gap-2">
-                {insight.sources.map((source, i) => (
-                  <a
-                    key={i}
-                    href={source.url}
-                    className="text-xs text-primary hover:underline font-medium"
-                  >
-                    {source.label}
-                  </a>
-                ))}
+            {/* Sources as inline links */}
+            {insight.sources && insight.sources.length > 0 && (
+              <div className="flex items-center gap-2 pt-2 border-t border-border">
+                <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">Sources:</span>
+                <div className="flex items-center gap-2">
+                  {insight.sources.map((source, i) => (
+                    <a
+                      key={i}
+                      href={source.url}
+                      className="text-xs text-primary hover:underline font-medium"
+                    >
+                      {source.label}
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
-        {/* While you're there — nearby opportunities */}
-        {insight.nearbyOpportunities && insight.nearbyOpportunities.length > 0 && (
-          <div className="rounded-lg border bg-card p-4 space-y-3 mt-4">
+        {/* Right — Action step */}
+        {hasActionContent && (
+          <div className="flex flex-col gap-3 px-6 py-5 w-[60%] shrink-0">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+              Action step
+            </p>
+
+            {insight.actionStep && (
+              <div className="flex items-start gap-3">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground text-[10px] font-bold mt-0.5">
+                  1
+                </span>
+                <p className="text-sm text-foreground leading-snug">{insight.actionStep.description}</p>
+              </div>
+            )}
+
+            <RichActionContent insight={insight} />
+          </div>
+        )}
+      </div>
+
+      {/* Bottom section — While you're there (full width) */}
+      {insight.nearbyOpportunities && insight.nearbyOpportunities.length > 0 && (
+        <div className="px-6 py-5 border-t border-border">
+          <div className="rounded-lg border bg-card p-4 space-y-3">
             <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
               <MapPin className="h-3 w-3" />
               While you&apos;re there
@@ -81,29 +106,8 @@ export function InsightDetailBody({ insight }: { insight: Insight }) {
               ))}
             </div>
           </div>
-        )}
-      </div>
-
-      {/* Right — Action step */}
-      {hasActionContent && (
-        <div className="flex flex-col gap-3 px-6 py-5 w-[60%] shrink-0">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-            Action step
-          </p>
-
-          {insight.actionStep && (
-            <div className="flex items-start gap-3">
-              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground text-[10px] font-bold mt-0.5">
-                1
-              </span>
-              <p className="text-sm text-foreground leading-snug">{insight.actionStep.description}</p>
-            </div>
-          )}
-
-          <RichActionContent insight={insight} />
         </div>
       )}
-
     </div>
   )
 }
