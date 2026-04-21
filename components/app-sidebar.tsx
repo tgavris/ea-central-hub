@@ -37,7 +37,6 @@ import { getNeedsAttentionCountByColleague, insights, isNeedsAttention } from '@
 import { cn } from '@/lib/utils'
 
 const otherNavItems = [
-  { label: 'Clippings', href: '/clippings', icon: Paperclip },
   { label: 'Contacts', href: '/contacts', icon: Users },
   { label: 'Preferences', href: '/preferences', icon: Settings },
 ]
@@ -48,7 +47,7 @@ export function AppSidebar() {
   const totalAttentionCount = insights.filter(isNeedsAttention).length
   
   const isInsightsActive = pathname.startsWith('/insights') || pathname.startsWith('/todo')
-  const isInboxActive = pathname.startsWith('/inbox')
+  const isInboxActive = pathname.startsWith('/inbox') || pathname.startsWith('/clippings')
   const [inboxOpen, setInboxOpen] = useState(isInboxActive)
 
   return (
@@ -104,6 +103,17 @@ export function AppSidebar() {
                           <Link href="/inbox/slack">
                             <MessageSquare className="h-3.5 w-3.5" />
                             <span>Slack</span>
+                          </Link>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                      <SidebarMenuSubItem>
+                        <SidebarMenuSubButton
+                          asChild
+                          isActive={pathname === '/clippings'}
+                        >
+                          <Link href="/clippings">
+                            <Paperclip className="h-3.5 w-3.5" />
+                            <span>Clippings</span>
                           </Link>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
