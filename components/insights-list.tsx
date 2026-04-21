@@ -29,7 +29,7 @@ export function InsightsList({ insights, colleagueName, selectedId, onSelect }: 
     )
   }
 
-  // Group insights by colleague when viewing "Everything" (no colleagueName filter)
+  // Group insights by colleague when viewing "All Insights" (no colleagueName filter)
   const groupByColleague = !colleagueName
 
   const renderInsightGroup = (items: Insight[], title: string) => {

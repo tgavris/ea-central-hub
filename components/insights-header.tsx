@@ -4,32 +4,27 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { useTodo } from '@/lib/todo-context'
 
 interface InsightsHeaderProps {
   colleagueName?: string
   insightCount?: number
+  todoCount?: number
 }
 
-export function InsightsHeader({ colleagueName, insightCount }: InsightsHeaderProps) {
+export function InsightsHeader({ colleagueName, insightCount, todoCount = 0 }: InsightsHeaderProps) {
   const pathname = usePathname()
-  const { todos } = useTodo()
-  
-  const todoCount = todos.filter(t => t.status !== 'done').length
   const title = colleagueName ? `Insights for ${colleagueName}` : 'All Insights'
   
   const tabs = [
-    { 
-      label: 'Insights', 
-      href: colleagueName ? pathname.split('/').slice(0, 3).join('/') : '/insights',
-      count: insightCount 
-    },
-    { label: 'To do', href: '/todo', count: todoCount },
+    { label: 'Insights', href: '/todo', count: todoCount },
+    { label: 'Teams', href: colleagueName ? `/teams/${colleagueName.toLowerCase().replace(' ', '-')}` : '/teams' },
+    { label: 'Desk Notes', href: colleagueName ? `/desk-notes/${colleagueName.toLowerCase().replace(' ', '-')}` : '/desk-notes' },
+    { label: 'Preferences', href: colleagueName ? `/preferences/${colleagueName.toLowerCase().replace(' ', '-')}` : '/preferences' },
   ]
 
   const isActive = (href: string) => {
-    if (href === '/todo') return pathname === '/todo'
-    return pathname.startsWith('/insights')
+    if (href === '/todo') return pathname === '/todo' || pathname.startsWith('/todo/')
+    return pathname === href || pathname.startsWith(href + '/')
   }
 
   return (
@@ -37,7 +32,7 @@ export function InsightsHeader({ colleagueName, insightCount }: InsightsHeaderPr
       {/* H1 - matches left nav selection */}
       <div className="px-6 pt-5 pb-0">
         <h1 className="text-3xl font-bold text-foreground mb-6">
-          {colleagueName || 'Everything'}
+          {colleagueName || 'All Insights'}
         </h1>
       </div>
       

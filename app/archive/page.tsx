@@ -15,11 +15,16 @@ export default function ArchivePage() {
   const insightCount = getNeedsAttentionCount(insights)
   
   const tabs = [
-    { label: 'Insights', href: '/insights', count: insightCount },
-    { label: 'To do', href: '/todo', count: todoCount },
+    { label: 'Insights', href: '/todo', count: todoCount },
+    { label: 'Teams', href: '/teams' },
+    { label: 'Desk Notes', href: '/desk-notes' },
+    { label: 'Preferences', href: '/preferences' },
   ]
 
-  const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/')
+  const isActive = (href: string) => {
+    if (href === '/todo') return pathname === '/todo' || pathname.startsWith('/todo/')
+    return pathname === href || pathname.startsWith(href + '/')
+  }
 
   return (
     <div className="flex flex-col h-full">
@@ -28,7 +33,7 @@ export default function ArchivePage() {
         {/* H1 - matches left nav selection */}
         <div className="px-6 pt-5 pb-0">
           <h1 className="text-3xl font-bold text-foreground mb-6">
-            Everything
+            All Insights
           </h1>
         </div>
         

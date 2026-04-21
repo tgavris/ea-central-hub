@@ -26,7 +26,7 @@ export function InsightsEverythingClient({ insights, attentionCount }: InsightsE
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      <InsightsHeader insightCount={attentionCount} />
+      <InsightsHeader insightCount={attentionCount} todoCount={insights.length} />
 
       <div className="flex flex-1 overflow-hidden">
         {/* Left pane */}
