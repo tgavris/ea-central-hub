@@ -25,6 +25,7 @@ import {
   Moon,
   Sun,
   BookOpen,
+  Lightbulb,
 } from 'lucide-react'
 import { colleagues } from '@/lib/data/colleagues'
 import { getNeedsAttentionCountByColleague, insights, isNeedsAttention } from '@/lib/data/insights'
@@ -59,6 +60,24 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
+              {/* All Insights */}
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname === '/todo'}
+                  className={cn(
+                    'px-4 py-2 text-sm',
+                    pathname === '/todo' && 'bg-sidebar-accent text-sidebar-accent-foreground'
+                  )}
+                >
+                  <Link href="/todo">
+                    <Lightbulb className="h-4 w-4" />
+                    <span className="flex-1">All Insights</span>
+                    <span className="text-xs text-sidebar-muted">{totalAttentionCount}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+
               {/* Inbox — single flat link */}
               <SidebarMenuItem>
                 <SidebarMenuButton
@@ -108,23 +127,6 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {/* All Insights */}
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === '/todo'}
-                  className={cn(
-                    'px-4 py-2 text-sm',
-                    pathname === '/todo' && 'bg-sidebar-accent text-sidebar-accent-foreground'
-                  )}
-                >
-                  <Link href="/todo">
-                    <span className="flex-1">All Insights</span>
-                    <span className="text-xs text-sidebar-muted">{totalAttentionCount}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-
               {/* Colleagues */}
               {colleagues.map((colleague) => {
                 const count = getNeedsAttentionCountByColleague(colleague.id)
