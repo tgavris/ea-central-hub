@@ -359,15 +359,7 @@ function TodoListRow({
         )}>
           {todo.urgency}
         </span>
-        <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full capitalize">
-          {todo.speed}
-        </span>
       </div>
-
-      {/* Date */}
-      <span className="hidden lg:block text-xs text-muted-foreground shrink-0 w-24 text-right">
-        {formatDistanceToNow(todo.createdAt)}
-      </span>
 
       {/* In-progress action buttons */}
       {(showMoveToDone || onBackToInsights) && (
@@ -392,6 +384,11 @@ function TodoListRow({
           )}
         </div>
       )}
+
+      {/* Date */}
+      <span className="hidden lg:block text-xs text-muted-foreground shrink-0 w-24 text-right">
+        {formatDistanceToNow(todo.createdAt)}
+      </span>
 
       {/* Three-dot menu */}
       <DropdownMenu>
