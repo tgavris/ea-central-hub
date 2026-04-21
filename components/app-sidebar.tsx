@@ -156,17 +156,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Apps Section */}
-        <SidebarGroup className="mt-auto">
-          <SidebarGroupLabel className="text-sidebar-muted text-xs font-medium uppercase tracking-wider px-4">
-            Apps
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <div className="px-4 py-2 text-sm text-sidebar-muted">
-              No apps connected
-            </div>
-          </SidebarGroupContent>
-        </SidebarGroup>
+
       </SidebarContent>
 
       <SidebarFooter className="border-t border-sidebar-border">
