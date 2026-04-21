@@ -32,19 +32,10 @@ export default function TodoPage() {
       {/* Header */}
       <header className="sticky top-0 z-10 bg-background border-b">
         {/* Title row */}
-        <div className="flex items-center justify-between px-6 pt-5 pb-4">
+        <div className="px-6 pt-5 pb-4">
           <h1 className="text-3xl font-bold text-foreground">
             All Insights
           </h1>
-          <div className="relative">
-            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-            <Input
-              placeholder="Search tasks"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-8 h-8 w-48 text-xs"
-            />
-          </div>
         </div>
 
         {/* Tabs row */}
@@ -82,7 +73,7 @@ export default function TodoPage() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search tasks..."
-                className="h-8 pl-8 pr-3 text-xs w-44"
+                className="h-8 pl-8 pr-3 text-xs w-44 border-input/60 bg-muted/60 placeholder:text-muted-foreground/70"
               />
             </div>
             <Button size="sm" className="text-xs h-8 bg-[#2251FF] text-white hover:bg-[#2251FF]/90">
