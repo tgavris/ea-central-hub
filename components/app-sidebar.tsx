@@ -118,7 +118,7 @@ export function AppSidebar() {
                   )}
                 >
                   <Link href="/insights">
-                    <span className="flex-1">Everything</span>
+                    <span className="flex-1">All Insights</span>
                     <span className="text-xs text-sidebar-muted">{totalAttentionCount}</span>
                   </Link>
                 </SidebarMenuButton>

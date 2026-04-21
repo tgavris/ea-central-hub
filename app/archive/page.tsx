@@ -28,7 +28,7 @@ export default function ArchivePage() {
         {/* H1 - matches left nav selection */}
         <div className="px-6 pt-5 pb-0">
           <h1 className="text-3xl font-bold text-foreground mb-6">
-            Everything
+            All Insights
           </h1>
         </div>
         

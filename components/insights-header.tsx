@@ -37,7 +37,7 @@ export function InsightsHeader({ colleagueName, insightCount }: InsightsHeaderPr
       {/* H1 - matches left nav selection */}
       <div className="px-6 pt-5 pb-0">
         <h1 className="text-3xl font-bold text-foreground mb-6">
-          {colleagueName || 'Everything'}
+          {colleagueName || 'All Insights'}
         </h1>
       </div>
       
