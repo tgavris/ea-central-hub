@@ -345,13 +345,13 @@ function TodoListRow({
       </span>
 
       {/* Tags */}
-      {!hideColleagueName && (
-        <div className="hidden md:flex items-center gap-1.5 shrink-0">
+      <div className="hidden md:flex items-center gap-1.5 shrink-0">
+        {!hideColleagueName && (
           <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
             {colleagueName}
           </span>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* In-progress action buttons */}
       {(showMoveToDone || onBackToInsights) && (
