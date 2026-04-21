@@ -75,9 +75,20 @@ export default function TodoPage() {
               </button>
             ))}
           </div>
-          <Button size="sm" className="text-xs h-8 mb-px bg-[#2251FF] text-white hover:bg-[#2251FF]/90">
-            Create EOD Summary
-          </Button>
+          <div className="flex items-center gap-2 mb-px">
+            <div className="relative">
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
+              <Input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search tasks..."
+                className="h-8 pl-8 pr-3 text-xs w-44"
+              />
+            </div>
+            <Button size="sm" className="text-xs h-8 bg-[#2251FF] text-white hover:bg-[#2251FF]/90">
+              Create EOD Summary
+            </Button>
+          </div>
         </div>
       </header>
 
