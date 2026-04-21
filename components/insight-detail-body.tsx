@@ -110,7 +110,7 @@ export function InsightDetailBody({ insight }: { insight: Insight }) {
 
       {/* Right — Action step */}
       {hasActionContent && (
-        <div className="flex flex-col gap-3 px-6 py-5 w-[46%] shrink-0">
+        <div className="flex flex-col gap-3 px-6 py-5 w-[60%] shrink-0">
           <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
             Action step
           </p>
