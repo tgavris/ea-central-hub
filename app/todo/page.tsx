@@ -17,7 +17,10 @@ export default function TodoPage() {
   const { todos } = useTodo()
   const [viewBy, setViewBy] = useState<TodoViewBy>('status')
   
-  const todoCount = todos.filter(t => t.status !== 'done').length
+  const todoInsightIds = new Set(todos.filter(t => t.source === 'insight').map(t => t.sourceId))
+  const pendingInsights = insights.filter(i => !todoInsightIds.has(i.id))
+  const queuedTodos = todos.filter(t => t.status === 'todo')
+  const todoCount = queuedTodos.length + pendingInsights.length
   const insightCount = getNeedsAttentionCount(insights)
   
   const tabs = [
