@@ -371,7 +371,7 @@ function TodoListRow({
 
       {/* In-progress action buttons */}
       {(showMoveToDone || onBackToInsights) && (
-        <div className="flex items-center gap-1 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="flex items-center gap-1 shrink-0">
           {onBackToInsights && (
             <button
               onClick={(e) => { e.stopPropagation(); onBackToInsights() }}
@@ -484,7 +484,7 @@ function InsightListRow({
       </span>
 
       {/* Action buttons */}
-      <div className="flex items-center gap-1 shrink-0 pt-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="flex items-center gap-1 shrink-0 pt-0.5">
         {onMoveToInProgress && (
           <button
             onClick={(e) => { e.stopPropagation(); onMoveToInProgress() }}
