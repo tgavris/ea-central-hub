@@ -45,7 +45,7 @@ export function AppSidebar() {
   return (
     <Sidebar className="border-r-0">
       <SidebarHeader className="px-4 py-5">
-        <Link href="/insights" className="flex items-center gap-3">
+        <Link href="/todo" className="flex items-center gap-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-md bg-sidebar-accent">
             <Boxes className="h-4 w-4 text-sidebar-primary" />
           </div>
@@ -111,13 +111,13 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton
                   asChild
-                  isActive={pathname === '/insights'}
+                  isActive={pathname === '/todo'}
                   className={cn(
                     'px-4 py-2 text-sm',
-                    pathname === '/insights' && 'bg-sidebar-accent text-sidebar-accent-foreground'
+                    pathname === '/todo' && 'bg-sidebar-accent text-sidebar-accent-foreground'
                   )}
                 >
-                  <Link href="/insights">
+                  <Link href="/todo">
                     <span className="flex-1">All Insights</span>
                     <span className="text-xs text-sidebar-muted">{totalAttentionCount}</span>
                   </Link>
@@ -127,7 +127,7 @@ export function AppSidebar() {
               {/* Colleagues */}
               {colleagues.map((colleague) => {
                 const count = getNeedsAttentionCountByColleague(colleague.id)
-                const isActive = pathname === `/insights/${colleague.id}` || pathname.startsWith(`/insights/${colleague.id}/`)
+                const isActive = pathname === `/todo/${colleague.id}` || pathname.startsWith(`/todo/${colleague.id}/`)
 
                 return (
                   <SidebarMenuItem key={colleague.id}>
@@ -139,7 +139,7 @@ export function AppSidebar() {
                         isActive && 'bg-sidebar-accent text-sidebar-accent-foreground'
                       )}
                     >
-                      <Link href={`/insights/${colleague.id}`}>
+                      <Link href={`/todo/${colleague.id}`}>
                         <span className={cn(
                           'flex-1 truncate',
                           isActive && 'font-medium'
