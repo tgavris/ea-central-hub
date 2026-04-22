@@ -128,14 +128,14 @@ export function FloatingChat() {
                       <button
                         key={i}
                         onClick={() => handlePromptClick(item.prompt)}
-                        className="flex items-center gap-3 p-3 rounded-lg border border-border bg-card hover:bg-muted/50 transition-colors text-left group"
+                        className="flex items-start gap-3 p-3 rounded-lg border border-border bg-card hover:bg-muted/50 transition-colors text-left group"
                       >
                         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted group-hover:bg-[#2251FF]/10 transition-colors">
                           <item.icon className="h-4 w-4 text-muted-foreground group-hover:text-[#2251FF] transition-colors" />
                         </div>
-                        <div className="flex-1 min-w-0">
+                        <div className="flex-1 min-w-0 overflow-hidden">
                           <p className="text-xs font-medium text-foreground">{item.label}</p>
-                          <p className="text-[11px] text-muted-foreground truncate">{item.prompt}</p>
+                          <p className="text-[11px] text-muted-foreground break-words line-clamp-2">{item.prompt}</p>
                         </div>
                       </button>
                     ))}
