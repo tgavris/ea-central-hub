@@ -6,6 +6,7 @@ import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/app-sidebar'
 import { TodoProvider } from '@/lib/todo-context'
 import { ThemeProvider } from '@/components/theme-provider'
+import { FloatingChat } from '@/components/floating-chat'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -46,6 +47,7 @@ export default function RootLayout({
               <SidebarInset className="bg-background overflow-hidden h-svh">
                 {children}
               </SidebarInset>
+              <FloatingChat />
             </SidebarProvider>
           </TodoProvider>
         </ThemeProvider>
