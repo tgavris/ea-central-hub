@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { ImageIcon, FileText, Clock, Tag, Hash, Mail, Search, Star, Reply, Forward, MoreHorizontal, Paperclip, Send, Smile, AtSign, Bold, Italic, Link2 } from 'lucide-react'
+import { ImageIcon, FileText, Clock, Tag, Hash, Mail, Search, Star, Reply, Forward, MoreHorizontal, Paperclip, Send, Smile, AtSign, Bold, Italic, Link2, Upload } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 type ScreenshotType = 'slack' | 'outlook' | 'uploaded'
